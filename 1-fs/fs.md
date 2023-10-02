@@ -15,71 +15,63 @@ cd path/to/project
 npm install
 ```
 
-Ignore `node_modules` from the repository. This prevents your node modules folder from being included in your repository.
-
-```shell
-echo 'node_modules' >> .gitignore
-```
-
-Create a `pets.js` file for your filesystem code.
-
-```shell
-touch pets.js
-```
+All work will be done in the `fs.js` file.
 
 ## Assignment
 
-Your first task is to build a command-line application that displays its usage, ideally to the [standard error]['stderr'] channel, when invoked without a subcommand. The app should [exit the process]['exit'] with a non-zero exit code to indicate that it failed to complete any work.
+Your first task is to build a command-line application that displays its usage, ideally to the [standard error](https://nodejs.org/api/console.html#consoleerrordata-args) channel, when invoked without a subcommand. The app should [exit the process](https://nodejs.org/api/process.html#processexitcode) with a non-zero exit code to indicate that it failed to complete any work.
 
 ```shell
-$ node pets.js
-Usage: node pets.js [read | create | update | destroy]
+$ node fs.js
+Usage: node fs.js [read | create | update | destroy]
 ```
 
-Your next task is to refactor the application to handle the `read` subcommand via the [process arguments]['argv'], read the `pets.json` file, parse its data to a native JavaScript object, and log it to the console. If the call to the filesystem fails for any reason, it should throw the resulting error.
+Your next task is to refactor the application to handle the `read` subcommand via the [process arguments](https://nodejs.org/api/process.html#processargv), read the `pets.json` file, parse its data to a native JavaScript object, and log it to the console. If the call to the filesystem fails for any reason, it should throw the resulting error.
 
 ```shell
-$ node pets.js read
-[ { age: 7, kind: 'rainbow', name: 'fido' },
-  { age: 5, kind: 'snake', name: 'Buttons' } ]
+$ node fs.js read
+[
+  { age: 7, kind: 'dog', name: 'fido' },
+  { age: 5, kind: 'snake', name: 'Buttons' }
+]
 ```
 
 Additionally, your application must handle the `read` subcommand when given an index. In this case, it must read the `pets.json` file, parse its data to a native JavaScript object, access the correct record, and log it to the console. If the call to the filesystem fails for any reason, it should throw the resulting error.
 
 ```shell
-$ node pets.js read 0
-{ age: 7, kind: 'rainbow', name: 'fido' }
+$ node fs.js read 0
+{ age: 7, kind: 'dog', name: 'fido' }
 
-$ node pets.js read 1
+$ node fs.js read 1
 { age: 5, kind: 'snake', name: 'Buttons' }
 ```
 
 Additionally, your application must handle the `read` subcommand when given an out-of-bound index. In this case, it must display a more specific usage to the standard error channel and exit with a non-zero exit code.
 
 ```shell
-$ node pets.js read 2
-Usage: node pets.js read INDEX
+$ node fs.js read 2
+Usage: node fs.js read INDEX
 
-$ node pets.js read -1
-Usage: node pets.js read INDEX
+$ node fs.js read -1
+Usage: node fs.js read INDEX
 ```
 
 Finally, your application must also handle the `create` subcommand. Only when given an `age`, `kind`, and `name` will it create a record in the database. Remember to convert the `age` into an integer. For example:
 
 ```shell
-$ node pets.js create
-Usage: node pets.js create AGE KIND NAME
+$ node fs.js create
+Usage: node fs.js create AGE KIND NAME
 
-$ node pets.js create 3
-Usage: node pets.js create AGE KIND NAME
+$ node fs.js create 3
+Usage: node fs.js create AGE KIND NAME
 
-$ node pets.js create 3 parakeet
-Usage: node pets.js create AGE KIND NAME
+$ node fs.js create 3 parakeet
+Usage: node fs.js create AGE KIND NAME
 
-$ node pets.js create 3 parakeet Cornflake
+$ node fs.js create 3 parakeet Cornflake
 { age: 3, kind: 'parakeet', name: 'Cornflake' }
 
-$ node pets.js read 2
+$ node fs.js read 2
 { age: 3, kind: 'parakeet', name: 'Cornflake' }
 ```
 
@@ -94,22 +86,22 @@ $ git checkout -- pets.json
 Refactor your app to also update records in the database when given the `update` subcommand. Remember to convert the `age` into an integer. For example:
 
 ```shell
-$ node pets.js update
-Usage: node pets.js update INDEX AGE KIND NAME
+$ node fs.js update
+Usage: node fs.js update INDEX AGE KIND NAME
 
-$ node pets.js update 1
-Usage: node pets.js update INDEX AGE KIND NAME
+$ node fs.js update 1
+Usage: node fs.js update INDEX AGE KIND NAME
 
-$ node pets.js update 1 9
-Usage: node pets.js update INDEX AGE KIND NAME
+$ node fs.js update 1 9
+Usage: node fs.js update INDEX AGE KIND NAME
 
-$ node pets.js update 1 9 cat
-Usage: node pets.js update INDEX AGE KIND NAME
+$ node fs.js update 1 9 cat
+Usage: node fs.js update INDEX AGE KIND NAME
 
-$ node pets.js update 1 9 cat Rosey
+$ node fs.js update 1 9 cat Rosey
 { age: 9, kind: 'cat', name: 'Rosey' }
 
-$ node pets.js read 1
+$ node fs.js read 1
 { age: 9, kind: 'cat', name: 'Rosey' }
 ```
 
@@ -118,37 +110,33 @@ $ node pets.js read 1
 Refactor your app to also destroy records in the database when given the `destroy` subcommand. For example:
 
 ```shell
-$ node pets.js destroy
-Usage: node pets.js destroy INDEX
+$ node fs.js destroy
+Usage: node fs.js destroy INDEX
 
-$ node pets.js destroy 1
+$ node fs.js destroy 1
 { age: 5, kind: 'snake', name: 'Buttons' }
 
-$ node pets.js read
-[ { age: 7, kind: 'rainbow', name: 'fido' } ]
+$ node fs.js read
+[ { age: 7, kind: 'dog', name: 'fido' } ]
 ```
 
 ## Bonus
 
-Add a shebang(#!) to the start of the `pets.js` file and modify its permissions so it can be run from the command-line without the `node` command. For example:
+Add a shebang (`#!`) to the start of the `fs.js` file and modify its permissions so it can be run from the command-line without the `node` command. For example:
 
 ```shell
-$ ./pets.js read
-[ { age: 7, kind: 'rainbow', name: 'fido' },
+$ ./fs.js read
+[ { age: 7, kind: 'dog', name: 'fido' },
   { age: 5, kind: 'snake', name: 'Buttons' } ]
 
-$ ./pets.js read 0
-{ age: 7, kind: 'rainbow', name: 'fido' }
+$ ./fs.js read 0
+{ age: 7, kind: 'dog', name: 'fido' }
 
-$ ./pets.js create 3 parakeet Cornflake
+$ ./fs.js create 3 parakeet Cornflake
 { age: 3, kind: 'parakeet', name: 'Cornflake' }
 
-$ ./pets.js read
-[ { age: 7, kind: 'rainbow', name: 'fido' },
+$ ./fs.js read
+[ { age: 7, kind: 'dog', name: 'fido' },
   { age: 5, kind: 'snake', name: 'Buttons' },
   { age: 3, kind: 'parakeet', name: 'Cornflake' } ]
 ```
-
-['argv']: https://nodejs.org/api/process.html#process_process_argv
-['exit']: https://nodejs.org/api/process.html#process_process_exit_code
-['stderr']: https://nodejs.org/api/console.html#console_console_error_data

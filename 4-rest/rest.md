@@ -8,24 +8,15 @@ Now that you've converted your Node HTTP server to Express, the final hurdle is 
 
 Change into the project directory.
 
-```shell
-$ cd path/to/project
-```
+In order for our application to be able to process json we need to add `app.use(express.json())` to our code in `rest.js`. Add this after you define the app instance. 
 
-Create and switch to a new feature branch.
-
-```shell
-$ git checkout -b restful_express_routes
-```
-In order for our application to be able to process json we need to add app.use(express.json()) to our restfulExpressServer.js
-Add this after you define the app instance. 
-
-```
+```js
 app.use(express.json());
 ```
+
 # Assignment Part 1
 
-Your next task is to create a RESTful Express HTTP server called `restfulExpressServer.js` to handle the create, update, and destroy HTTP commands. The route handlers must translate their respective command into an appropriate action that manages the records in the database. Once the database action is complete, the route handlers must send back an appropriate HTTP response.
+Your next task is to create a RESTful Express HTTP server called `rest.js` to handle the create, update, and destroy HTTP commands. The route handlers must translate their respective command into an appropriate action that manages the records in the database. Once the database action is complete, the route handlers must send back an appropriate HTTP response.
 
 | Request Method | Request URL | Request Body                                            | Response Status | Response Content-Type | Response Body                                           |
 | -------------- | ----------- | ------------------------------------------------------- | --------------- | --------------------- | ------------------------------------------------------- |
@@ -36,21 +27,13 @@ Your next task is to create a RESTful Express HTTP server called `restfulExpress
 | `DELETE`       | `/pets/3`   | N/A                                                     | `200`           | `application/json`    | `{ "name": "Fido", "age": 3, "kind": "parakeet" }`      |
 | `GET`          | `/pets/3`   | N/A                                                     | `404`           | `text/plain`          | `Not Found`                                             |
 
-**NOTE:** The `PATCH` route handler must only update the record if `age` is an integer, if `kind` is not missing, or if `name` is not missing.
+**NOTE:** The `PATCH` route handler must only update the record if `age` is an integer, `kind` is not missing, and `name` is not missing.
 
 Like before, start the HTTP server with `nodemon`.
 
 ```shell
-$ nodemon server.js
+$ nodemon http.js
 ```
-
-Open a new shell tab and use the `http` shell command to send HTTP requests to your server.
-
-```shell
-$ http POST localhost:8000/pets age=3 kind=parakeet name=Cornflake
-```
-
-**Alternatively you can use [Postman](https://www.postman.com/) to test your routes, this is a great tool. When you visit the site, look for the download app link and download the appropriate version for your operating system.**
 
 When handling the `POST` HTTP request method, if `age`, `kind`, or `name` are missing from the HTTP request body or `age` is not an integer, then the data must not be added to the database and the server must send back the follow HTTP response.
 
@@ -58,25 +41,7 @@ When handling the `POST` HTTP request method, if `age`, `kind`, or `name` are mi
 | -------------- | ----------- | ------------------------------------------ | --------------- | --------------------- | ------------- | --- |
 | `POST`         | `/pets`     | `{ "name": "", "age": "two", "kind": "" }` | `400`           | `text/plain`          | `Bad Request` |     |
 
-Once you've successfully added these route handlers, check out the `master` branch.
-
-```shell
-$ git checkout master
-```
-
-Merge the feature branch into `master`.
-
-```shell
-$ git merge restful_express_routes
-```
-
-And delete the feature branch.
-
-```shell
-$ git br -d restful_express_routes
-```
-
-Add [404 Not Found]['404'] middleware to handle all unknown HTTP requests and send an appropriate response.
+Add `404 - Not Found` middleware to handle all unknown HTTP requests and send an appropriate response.
 
 | Request Method | Request URL | Response Status | Response Content-Type | Response Body |
 | -------------- | ----------- | --------------- | --------------------- | ------------- |
@@ -85,7 +50,7 @@ Add [404 Not Found]['404'] middleware to handle all unknown HTTP requests and se
 
 # Assignment Part 2
 
-**Re-work your server so that it connects to a RDBMS (e.g. Postgres or MySQL) and queries that database in each route instead of a JSON file**
+**Re-work your server so that it connects to a RDBMS (e.g. Postgres or MySQL) and queries that database in each route instead of a JSON file. Also, refactor any call-back based operations to use their `Promise`-based alternatives (e.g. `db.query` and `fs.readFile`.**
 
 This will require you to create a new database, build out the table(s), install certain dependencies using `npm`, and tell the server to connect to the database before you can run queries in each route.
 

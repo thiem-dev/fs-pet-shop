@@ -14,11 +14,7 @@ Change into the project directory.
 $ cd path/to/project
 ```
 
-Create an `httpServer.js` file for your HTTP server code.
-
-```shell
-$ touch httpServer.js
-```
+All work will be done in the `http.js` file.
 
 ## Assignment
 
@@ -41,20 +37,10 @@ $ npm install -g nodemon
 Start the HTTP server with `nodemon`.
 
 ```shell
-$ nodemon httpServer.js
+$ nodemon http.js
 ```
 
-Open a new shell tab and install HTTPie.
-
-```shell
-$ brew install httpie
-```
-
-Use the new `http` shell command to send HTTP requests to your server. Remember to set the port of your HTTP server to something like `8000`.
-
-```shell
-$ http GET localhost:8000/pets
-```
+You can use your web-browser or a tool like Thunder Client or Postman to test your routes.
 
 ## Bonus
 
@@ -87,18 +73,12 @@ Add a catch all route handler for unknown HTTP requests and send the appropriate
 
 ## Bonus
 
-In future parts of this assignment, your server will need to handle create, update, and destroy HTTP commands. For now, add a route handler that responds to create commands by adding new pets to the database.
+In future parts of this assignment, your server will need to handle create, update, and destroy HTTP commands. For now, add a route handler that responds to create commands by adding new pets to the `pets.json` file.
 
 | Request Method | Request URL | Request Body                                            | Response Status | Response Content-Type | Response Body                                           |
 | -------------- | ----------- | ------------------------------------------------------- | --------------- | --------------------- | ------------------------------------------------------- |
 | `POST`         | `/pets`     | `{ "name": "Cornflake", "age": 3, "kind": "parakeet" }` | `200`           | `application/json`    | `{ "name": "Cornflake", "age": 3, "kind": "parakeet" }` |
 | `GET`          | `/pets/3`   | N/A                                                     | `200`           | `application/json`    | `{ "name": "Cornflake", "age": 3, "kind": "parakeet" }` |
-
-You can send create commands to the server app with the following command
-
-```shell
-http POST http://localhost:8000/pets age=3 kind=parakeet name=Cornflake
-```
 
 If `age`, `kind`, or `name` are missing from the HTTP request body or `age` is not an integer, then the data must not be added to the database and the server must send back the follow HTTP response.
 
