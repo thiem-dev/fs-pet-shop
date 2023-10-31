@@ -1,19 +1,40 @@
-import fs from 'fs'
-// const process = require('process');
+import fs from 'fs';
+import process from 'process';
 
+// console.log(process.argv.length)
 
-// console.log(process.argv)
-
-// if(process.argv.length === 0){
-//     console.log(`Usage: node fs.js [read | create | update | destroy]`)
-    
-// } else {
-//     console.log('else')
-// }
-
-fs.readFile(`../pets.json`, 'utf8', (error, data) => {
-    if(error){
-        console.error(`Error reading file`, error)
+if(process.argv.length <= 2){
+    console.log(`Usage: node fs.js [read | create | update | destroy]`)
+} else {
+    const dbCommand = process.argv[2]
+    switch(dbCommand){
+        case 'read':
+            showPets();
+            break;
+        case 'create':
+            console.log(`create`);
+            break;
+        case 'update':
+            console.log(`update`);
+            break;
+        case 'destroy':
+            console.log(`destroy`);
+            break;
+        default:
+            console.error(`invalid command, check arguments`)
     }
-    console.log(`file contents:`, data)
-})
+}
+
+
+
+function showPets(){
+    const dbPath = `../pets.json`
+    fs.readFile(dbPath, 'utf8', (error, data) => {
+        if(error){
+            console.error(`Error reading file`, error)
+        }
+        console.log(`file contents:`, data)
+    })
+}
+
+
