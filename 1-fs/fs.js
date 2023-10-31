@@ -33,7 +33,7 @@ function showPets(){
         if(error){
             console.error(`Error reading file`, error)
         }
-        console.log(`file contents:`, data)
+        console.log(`file contents:`, JSON.parse(data))
     })
 }
 
