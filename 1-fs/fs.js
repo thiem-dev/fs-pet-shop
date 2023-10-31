@@ -1,6 +1,7 @@
 import fs from 'fs';
 import process from 'process';
 
+
 // console.log(process.argv.length)
 
 if(process.argv.length <= 2){
@@ -9,7 +10,8 @@ if(process.argv.length <= 2){
     const dbCommand = process.argv[2]
     switch(dbCommand){
         case 'read':
-            showPets();
+            const index = process.argv[3]
+            showPets(index);
             break;
         case 'create':
             console.log(`create`);
@@ -27,13 +29,14 @@ if(process.argv.length <= 2){
 
 
 
-function showPets(){
+function showPets(index){
     const dbPath = `../pets.json`
     fs.readFile(dbPath, 'utf8', (error, data) => {
         if(error){
             console.error(`Error reading file`, error)
+            process.exit(9);
         }
-        console.log(`file contents:`, JSON.parse(data))
+        console.log(`file contents:`, JSON.parse(data)[index])
     })
 }
 
