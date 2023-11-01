@@ -1,1 +1,27 @@
-[{"age":7,"kind":"dog","name":"fido"},{"age":5,"kind":"snake","name":"Buttons"},{"age":3,"kind":"parakeet","name":"Cornflake"},{"age":5,"kind":"cat","name":"blueberry"}]
+[
+    {
+        "age": 7,
+        "kind": "dog",
+        "name": "fido"
+    },
+    {
+        "age": 9,
+        "kind": "cat",
+        "name": "Fluff"
+    },
+    {
+        "age": 3,
+        "kind": "parakeet",
+        "name": "Cornflake"
+    },
+    {
+        "age": 5,
+        "kind": "cat",
+        "name": "blueberry"
+    },
+    {
+        "age": 10,
+        "kind": "tiger",
+        "name": "Stripes"
+    }
+]
