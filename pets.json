@@ -8,20 +8,5 @@
         "age": 9,
         "kind": "cat",
         "name": "Fluff"
-    },
-    {
-        "age": 3,
-        "kind": "parakeet",
-        "name": "Cornflake"
-    },
-    {
-        "age": 5,
-        "kind": "cat",
-        "name": "blueberry"
-    },
-    {
-        "age": 10,
-        "kind": "tiger",
-        "name": "Stripes"
     }
 ]
