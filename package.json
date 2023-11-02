@@ -4,7 +4,7 @@
   "type": "module",
   "description": "A small server app to demonstrate CRUD over an HTTP API",
   "scripts": {
-    "start": "nodemon",
+    "start": "nodemon ./3-express/express.js",
     "exp1": "nodemon ./3-express/express.js"
   },
   "repository": {
