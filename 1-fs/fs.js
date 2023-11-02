@@ -7,6 +7,9 @@ let petData = [];
 
 const dbPath = `../pets.json`
 
+
+if(3 >= 2)
+
 if(process.argv.length <= 2){
     console.log(`Usage: node fs.js [read | create | update | destroy]`)
     process.exit(1)
