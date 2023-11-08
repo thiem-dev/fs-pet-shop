@@ -1,0 +1,20 @@
+{
+  "name": "4-restful",
+  "version": "1.0.0",
+  "description": "![pet-shop](https://i.imgur.com/oZFSFYq.jpg)",
+  "main": "restful.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "restful1": "nodemon --env-file .env restful.js",
+    "express1": "nodemon restful.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodemon": "^3.0.1",
+    "pg": "^8.11.3"
+  }
+}
