@@ -38,7 +38,7 @@ app.get('/pets', async (req, res) => {
 
 
 //GET ONE
-app.get('/pets/:id', async(req, res)=>{
+app.get('/pets/:id', async(req, res) => {
     petData = await getPets()
     const index = req.params.id
     checkIndexRange(index, res)
@@ -46,16 +46,23 @@ app.get('/pets/:id', async(req, res)=>{
 })
 
 //POST
-app.post('/pets', async(req, res)=>{
+app.post('/pets', async(req, res) => {
     petData = await getPets()
     let petDataNew = await writePets(req.body)
     res.send(petDataNew)
 })
 
-
 //PUT /PATCH
+app.put('/pets/:id', async (req, res) => {
+    petData = await getPets();
+    const index = req.params.id
+    let adjustedPetData = await adjustPets(index, req.body)
+    res.send(adjustedPetData);
+})
+
 
 //DELETE
+
 
 app.use((req, res, next) => {
     next({message: "The path you are looking for does not exist", status:404})
@@ -104,6 +111,24 @@ async function writePets(obj){
             } 
         })
         return petData
+    } else {
+        console.log("Request body cannot be empty")
+    }
+}
+
+async function adjustPets(index, obj){
+    if(Object.keys(obj).length > 0){
+        const newPetData = [
+            ...petData.slice(0, index),
+            obj,
+            ...petData.slice(index+1)
+        ]
+        fs.writeFile(dbPath, JSON.stringify(newPetData), (error) => {
+            if(error){
+                return {message: "Error writing to the file"}
+            } 
+        })
+        return newPetData;
     } else {
         console.log("Request body cannot be empty")
     }

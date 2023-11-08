@@ -1,1 +1,22 @@
-[{"age":7,"kind":"dog","name":"fido"},{"age":9,"kind":"cat","name":"Fluff"},[{"age":30,"kind":"tiger","name":"stripes"}],{"age":2,"kind":"fish","name":"bubbles"}]
+[
+    {
+        "age": 7,
+        "kind": "dog",
+        "name": "fido"
+    },
+    {
+        "age": 9,
+        "kind": "cat",
+        "name": "Fluff"
+    },
+    {
+        "age": 30,
+        "kind": "tiger",
+        "name": "stripes"
+    },
+    {
+        "age": 50,
+        "kind": "fish",
+        "name": "bubbles"
+    }
+]
