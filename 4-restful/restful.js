@@ -1,4 +1,5 @@
 import express from 'express';
+import path from 'path'
 import fs from 'fs'; //remove later when connected to fs
 import pg from 'pg';
 
@@ -20,7 +21,7 @@ let petData;
 
 // ------------------------------------------------------ MIDDLEWARE
 app.use(express.json());
-
+app.use(express.static('public')) 
 
 // app.use((req, res, next) => {
 //     console.log('validation check goes here')
@@ -29,13 +30,14 @@ app.use(express.json());
 // ------------------------------------------------------- ROUTES
 
 //GET ALL
-app.get('/pets', async(req, res) => {
+app.get('/api/pets', async(req, res) => {
     try{
         let result = await pool.query(
             'SELECT * FROM pets'
         );
         res.send(result.rows)
     } catch(error){
+        console.log(error)
         res.json(error)
     }
 })
