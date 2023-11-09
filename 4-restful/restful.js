@@ -22,7 +22,7 @@ const dbPath = `../pets.json`;
 app.use(express.json());
 
 
-// app.use('/', (req, res, next) => {
+// app.use((req, res, next) => {
 //     console.log('validation check goes here')
 //     next()
 // })

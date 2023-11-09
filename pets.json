@@ -1,1 +1,12 @@
-[{"age":9,"kind":"cat","name":"Fluff"},{"age":30,"kind":"tiger","name":"stripes"}]
+[
+    {
+        "age": 9,
+        "kind": "cat",
+        "name": "Fluff"
+    },
+    {
+        "age": 30,
+        "kind": "tiger",
+        "name": "stripes"
+    }
+]
