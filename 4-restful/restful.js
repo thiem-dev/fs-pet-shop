@@ -30,10 +30,14 @@ app.use(express.json());
 
 //GET ALL
 app.get('/pets', async(req, res) => {
-    let result = await pool.query(
-        'SELECT * FROM pets'
-    );
-    res.send(result.rows)
+    try{
+        let result = await pool.query(
+            'SELECT * FROM pets'
+        );
+        res.send(result.rows)
+    } catch(error){
+        res.json(error)
+    }
 })
 
 app.listen(apiPORT, () => {
