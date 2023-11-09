@@ -11,9 +11,7 @@ let petData
 app.use(express.json())
 
 //*************************************** Routes  */
-app.use('/', (req, res, next) => {
-    next({message: "The path you are looking for does not exist", status: 404})
-})
+
 
 app.get('/pets', async (req, res) => {
     petData = await getPets()
@@ -33,7 +31,11 @@ app.post('/pets', async(req, res)=>{
     let petDataNew = await writePets(req.body)
     console.log(petData, "petdatafail")
     res.send(petDataNew)
-} )
+})
+
+app.use('/', (req, res, next) => {
+    next({message: "The path you are looking for does not exist", status: 404})
+})
 
 app.use((err, req, res, next) => {
     console.log("app use")
