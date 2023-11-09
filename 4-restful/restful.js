@@ -56,6 +56,7 @@ app.post('/pets', async(req, res) => {
 app.put('/pets/:id', async (req, res) => {
     petData = await getPets();
     const index = req.params.id;
+    checkIndexRange(index, res);
     let adjustedPetData = await adjustPets(index, req.body);
     res.send(adjustedPetData);
 })
@@ -65,6 +66,7 @@ app.put('/pets/:id', async (req, res) => {
 app.delete('/pets/:id', async (req, res) => {
     petData = await getPets();
     const index = req.params.id;
+    checkIndexRange(index, res);
     let adjustedPetData = await deletePets(index);
     res.send(adjustedPetData);
 })
