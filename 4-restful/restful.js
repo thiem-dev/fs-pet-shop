@@ -83,6 +83,10 @@ app.put('/api/pets/:id', async (req, res) => {
             RETURNING *;
             `, [age, name, kind, index]
         )
+            if(result.rows.length === 0){
+                return res.status(404, `Pet id: ${index} does not exist`);
+            }
+
         res.send(result.rows)
     } catch (error){
         console.log(error)
