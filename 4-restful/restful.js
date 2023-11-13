@@ -21,7 +21,7 @@ const pool = new Pool({
 
 // ------------------------------------------------------ MIDDLEWARE
 app.use(express.json());
-app.use(express.static('public')) 
+app.use(express.static('public')) //serves index.html
 
 // app.use((req, res, next) => {
 //     console.log('validation check goes here')
@@ -29,7 +29,7 @@ app.use(express.static('public'))
 // })
 // ------------------------------------------------------- ROUTES
 
-//GET ALL
+
 app.get('/api/pets', async(req, res) => {
     try{
         const result = await pool.query(
@@ -44,37 +44,41 @@ app.get('/api/pets', async(req, res) => {
 
 app.get('/pets/:id', async (req, res) => {
     const index = req.params.id;
-
     try{
         const result = await pool.query(
             `SELECT * FROM pets
-            WHERE index = ${index}`
-        )
+            WHERE id = ${index};`
+        );
+        
+        if(result.rows.length === 0){
+            res.send('No pet id exists here')
+            throw new Error()
+        }
+        res.send(result.rows)
+    } catch (error) {
+        console.log(error)
+        res.json(error)
+    }
+})
+
+app.post('/pets', async(req, res) =>{
+    const {age, name, kind} = req.body;
+    try{
+        const result = await pool.query(
+            `INSERT INTO pets (age, name, kind) 
+            VALUES ($1, $2, $3)
+            RETURNING *; `, [age, name, kind]);
+
+        res.send(result.rows)
+    } catch(error) {
+        console.log(error)
+        res.json(error)
     }
 })
 
 app.listen(apiPORT, () => {
     console.log(`server listening on http://localhost:${apiPORT}`)
 })
-
-
-
-
-
-// app.get('/pets', async (req, res) => {
-//     petData = await getPets();
-//     console.log('get all pets path');
-//     res.send(petData);
-// })
-
-
-// //GET ONE
-// app.get('/pets/:id', async(req, res) => {
-//     petData = await getPets();
-//     const index = req.params.id;
-//     checkIndexRange(index, res);
-//     res.send(petData[index]);
-// })
 
 // //POST
 // app.post('/pets', async(req, res) => {
@@ -120,14 +124,14 @@ app.listen(apiPORT, () => {
 // // --------------------------------------------------- UTILITY FUNCTIONS
 
 
-// function checkIndexRange(index, res){
-//     if(index > petData.length){
-//         res.send(404, 'Not Found')
-//     } else if(index < 0){
-//         res.send(404, 'Not Found')
-//     }
-//     console.log("Inside check range", petData[index])
-// }
+function checkIndexRange(index, res){
+    if(index > petData.length){
+        res.send(404, 'Not Found')
+    } else if(index < 0){
+        res.send(404, 'Not Found')
+    }
+    console.log("Inside check range", petData[index])
+}
 
 // async function getPets(){
 //     try{

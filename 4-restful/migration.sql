@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS pets;
 
 CREATE TABLE pets(
-    id serial,
+    id serial PRIMARY KEY,
     age INTEGER,
     name VARCHAR(255),
     kind VARCHAR(255)
