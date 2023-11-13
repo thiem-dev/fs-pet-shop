@@ -48,7 +48,7 @@ app.get('/api/pets/:id', async (req, res) => {
         
         if(result.rows.length === 0){
             res.send('No pet id exists here')
-            throw new Error()
+            return res.status(404).send(`Pet id: ${index} does not exist`);
         }
         res.send(result.rows)
     } catch (error) {
