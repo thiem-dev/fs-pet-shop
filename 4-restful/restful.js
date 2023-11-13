@@ -16,7 +16,7 @@ const pool = new Pool({
 })
 
 
-let petData;
+// let petData;
 // const dbPath = `../pets.json`;
 
 // ------------------------------------------------------ MIDDLEWARE
@@ -32,13 +32,24 @@ app.use(express.static('public'))
 //GET ALL
 app.get('/api/pets', async(req, res) => {
     try{
-        let result = await pool.query(
+        const result = await pool.query(
             'SELECT * FROM pets'
         );
         res.send(result.rows)
     } catch(error){
         console.log(error)
         res.json(error)
+    }
+})
+
+app.get('/pets/:id', async (req, res) => {
+    const index = req.params.id;
+
+    try{
+        const result = await pool.query(
+            `SELECT * FROM pets
+            WHERE index = ${index}`
+        )
     }
 })
 
